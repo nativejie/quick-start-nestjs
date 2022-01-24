@@ -2,7 +2,7 @@
  * @Description: 文件描述
  * @Author: zhoujie
  * @Date: 2022-01-21 17:23:56
- * @LastEditTime: 2022-01-21 18:03:06
+ * @LastEditTime: 2022-01-24 16:17:44
  * @LastEditors: zhoujie
  */
 import { Controller, Get, Query } from '@nestjs/common';
@@ -24,7 +24,6 @@ export class AppController {
 
   @Get('generate-mvc')
   async generateMVC(@Query('tableName') tableName: string) {
-    await this.appService.generateMVC(tableName);
-    return 'success';
+    return await this.appService.generateMVC(tableName);
   }
 }

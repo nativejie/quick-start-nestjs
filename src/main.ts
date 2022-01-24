@@ -2,7 +2,7 @@
  * @Description: 文件描述
  * @Author: zhoujie
  * @Date: 2021-12-24 17:36:56
- * @LastEditTime: 2022-01-21 17:37:56
+ * @LastEditTime: 2022-01-24 15:51:17
  * @LastEditors: zhoujie
  */
 import { VersioningType } from '@nestjs/common';
@@ -27,15 +27,13 @@ import { ResponseInterceptor } from './interceptors/ResponseInterceptor';
  */
 const enableSwagger = (app) => {
   const config = new DocumentBuilder()
-    .setTitle('前端数据服务平台')
-    .setDescription(
-      '提供数据包装的能力，将一些数据聚合封装成图表所学的形式以供前端快速使用',
-    )
+    .setTitle('swagger title')
+    .setDescription('swagger description')
     .setVersion(GLOABL_API_VERSION)
-    .addTag('Data Service')
+    .addTag('swagger')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('data-service-api', app, document);
+  SwaggerModule.setup('api', app, document);
 };
 
 async function bootstrap() {
@@ -82,6 +80,6 @@ async function bootstrap() {
 
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
-  console.log(`Swagger is running on: ${await app.getUrl()}/data-service-api`);
+  console.log(`Swagger is running on: ${await app.getUrl()}/api`);
 }
 bootstrap();

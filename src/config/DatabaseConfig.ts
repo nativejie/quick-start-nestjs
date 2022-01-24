@@ -2,7 +2,7 @@
  * @Description: 数据库配置文件
  * @Author: zhoujie
  * @Date: 2021-12-27 16:54:24
- * @LastEditTime: 2022-01-04 15:51:50
+ * @LastEditTime: 2022-01-24 15:46:24
  * @LastEditors: zhoujie
  */
 import { registerAs } from '@nestjs/config';

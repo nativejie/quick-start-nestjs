@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { {{properCase serviceName}} } from 'src/service/{{properCase serviceName}}'
 import { {{properCase controllerName}} } from 'src/controller/{{properCase controllerName}}'
-import { {{properCase entityName}} } from 'src/controller/{{properCase entityName}}'
+import { {{properCase entityName}} } from 'src/entity/{{properCase entityName}}'
 
 @Module({
   imports: [TypeOrmModule.forFeature([{{properCase entityName}}])],

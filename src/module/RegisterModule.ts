@@ -2,7 +2,7 @@
  * @Description: 此模块用于注册一些第三方服务，所有的服务都放置于此注册。例：Redis、TypeOrm等
  * @Author: zhoujie
  * @Date: 2021-12-27 17:08:32
- * @LastEditTime: 2022-01-07 14:47:57
+ * @LastEditTime: 2022-01-24 15:47:51
  * @LastEditors: zhoujie
  */
 import { Global, Logger, Module, ValidationPipe } from '@nestjs/common';
@@ -35,6 +35,7 @@ import { APP_PIPE } from '@nestjs/core';
       useClass: ValidationPipe,
     },
   ],
+  exports: [Logger],
 })
 @Global()
 export class RegisterModule {}
