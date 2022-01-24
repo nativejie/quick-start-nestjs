@@ -1,0 +1,122 @@
+/*
+ * @Description: 数据组件Controller
+ * @Author: zhoujie
+ * @Date: 2022-01-07 15:49:29
+ * @LastEditTime: 2022-01-24 14:37:38
+ * @LastEditors: zhoujie
+ */
+
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { {{properCase entityName}} } from 'src/entity/{{properCase entityName}}';
+import { ResultCodeEnum } from 'src/enum/ApiResultEnum';
+import { IPageResult } from 'src/interfaces/IPageResult';
+import { {{properCase serviceName}} } from 'src/service/{{properCase serviceName}}';
+import { ApiResult } from 'src/utils/ApiResult';
+import { PageDto } from 'src/dto/PageDto';
+@ApiTags('{{properCase entityName}}')
+@Controller({
+  path: '{{dashCase controllerName}}',
+  version: '1',
+})
+export class {{properCase controllerName}} {
+  @Inject()
+  private readonly {{camelCase serviceName}}: {{properCase serviceName}};
+
+  /**
+   * 基础分页查询数据组件列表
+   * @param query 查询的dto
+   * @returns 返回分页后的结果
+   */
+  @ApiOperation({ summary: '基础分页' })
+  @Get('/paged-list')
+  async pagedList<T extends PageDto>(
+    @Query()
+    query: T,
+  ): Promise<IPageResult<{{properCase entityName}}>> {
+    return await this.{{camelCase serviceName}}.pagedList(query);
+  }
+
+  /**
+   * 列表接口
+   * @returns 查询的列表
+   */
+  @ApiOperation({ summary: '列表' })
+  @Get('/list')
+  async findAll(): Promise<{{properCase entityName}}[]> {
+    return await this.{{camelCase serviceName}}.findAll();
+  }
+
+  /**
+   * @param values 创建的dto
+   * @returns
+   */
+  @ApiOperation({ summary: '创建' })
+  @Post('/create')
+  async create(@Body() values: any) {
+    try {
+      return await this.{{camelCase serviceName}}.create(values);
+    } catch (error) {
+      return ApiResult.toFailed(ResultCodeEnum.CREATE_FAILED, error);
+    }
+  }
+
+  /**
+   * 根据id查询数据
+   * @param id 数据组件ID
+   * @returns 查询到的数据
+   */
+  @ApiOperation({ summary: '根据id查询数据' })
+  @Get('/get/:id')
+  async findById(@Param('id') id: number) {
+    try {
+      return await this.{{camelCase serviceName}}.findOneById(id);
+    } catch (error) {
+      return ApiResult.toFailed(ResultCodeEnum.QUERY_FAILED, error);
+    }
+  }
+
+  /**
+   * 根据id更新数据
+   * @param id
+   * @returns
+   */
+  @ApiOperation({ summary: '更新数据组件' })
+  @Put('/update/:id')
+  async update(
+    @Param('id') id: number,
+    @Body() values: any,
+  ) {
+    try {
+      await this.{{camelCase serviceName}}.update(id, values);
+      return true;
+    } catch (error) {
+      return ApiResult.toFailed(ResultCodeEnum.UPDATE_FAILED, error);
+    }
+  }
+
+  /**
+   * 根据id删除数据
+   * @param id id
+   * @returns
+   */
+  @ApiOperation({ summary: '删除数据' })
+  @Put('/delete/:id')
+  async delete(@Param('id') id: number) {
+    try {
+      await this.{{camelCase serviceName}}.deleteById(id);
+      return true;
+    } catch (error) {
+      return ApiResult.toFailed(ResultCodeEnum.DELETE_FAILED, error.message);
+    }
+  }
+}

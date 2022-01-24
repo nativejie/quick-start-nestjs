@@ -1,0 +1,76 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { {{properCase entityName}} } from 'src/entity/{{properCase entityName}}';
+import { IPageResult } from 'src/interfaces/IPageResult';
+import { Repository, InsertResult, UpdateResult, DeleteResult } from 'typeorm';
+import { PageDto } from 'src/dto/PageDto';
+
+@Injectable()
+export class {{properCase serviceName}} {
+  constructor(
+    @InjectRepository({{properCase entityName}})
+    private readonly {{camelCase repositoryName}}: Repository<{{properCase entityName}}>,
+  ) {}
+
+  async findOneById(id: number): Promise<{{properCase entityName}}> {
+    return await this.{{camelCase repositoryName}}.findOne(id);
+  }
+
+  async findAll(): Promise<{{properCase entityName}}[]> {
+    return await this.{{camelCase repositoryName}}.find();
+  }
+
+  /**
+   * 新建一条记录
+   * @param values 新建的参数
+   * @returns InsertResult
+   */
+  async create(values: any): Promise<InsertResult> {
+    return await this.{{camelCase repositoryName}}
+      .createQueryBuilder()
+      .insert()
+      .into({{properCase entityName}})
+      .values(values)
+      .execute();
+  }
+
+  /**
+   * 根据id进行更新
+   * @param values 更新的参数
+   * @returns UpdateResult
+   */
+  async update(id: number, values: any): Promise<UpdateResult> {
+    return await this.{{camelCase repositoryName}}.update(id, values);
+  }
+
+  /**
+   * 根据id进行删除
+   * @param id
+   * @returns DeleteResult
+   */
+  async deleteById(id: number): Promise<DeleteResult> {
+    return await this.{{camelCase repositoryName}}.delete(id);
+  }
+
+  /**
+   * 分页查询
+   * @param T 继承分页PageDto的查询Dto
+   * @returns 查询后的结果
+   */
+  async pagedList<T extends PageDto>(query: T): Promise<IPageResult<{{properCase entityName}}>> {
+    const { pageSize, pageIndex } = query;
+    const queryBuild = this.{{camelCase repositoryName}}.createQueryBuilder().addSelect('*');
+    const totalCount = await queryBuild.getCount();
+    const data = await queryBuild
+      .skip((pageIndex - 1) * pageSize)
+      .take(pageSize)
+      .orderBy('created_time', 'DESC')
+      .getMany();
+    return {
+      pageIndex,
+      pageSize,
+      data,
+      totalCount,
+    };
+  }
+}
