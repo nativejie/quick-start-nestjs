@@ -2,10 +2,11 @@
  * @Description: 文件描述
  * @Author: zhoujie
  * @Date: 2022-01-21 17:23:56
- * @LastEditTime: 2022-01-24 16:55:52
+ * @LastEditTime: 2022-01-24 17:12:00
  * @LastEditors: zhoujie
  */
 import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { InjectConnection } from '@nestjs/typeorm';
 import { writeFileSync } from 'fs';
 import { formateColumns } from 'src/utils/Table';

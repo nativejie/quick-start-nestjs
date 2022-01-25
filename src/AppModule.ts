@@ -2,7 +2,7 @@
  * @Description: 文件描述
  * @Author: zhoujie
  * @Date: 2022-01-21 17:23:56
- * @LastEditTime: 2022-01-24 15:57:05
+ * @LastEditTime: 2022-01-24 17:12:09
  * @LastEditors: zhoujie
  */
 import { Module } from '@nestjs/common';
