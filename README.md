@@ -9,7 +9,7 @@
 + ✅ helmet
 + ✅ winston log
 + ✅ class-validator
-+ ❌ 权限控制
++ ✅ 角色守卫和基础登录
 + ❌ 表结构到实体的生成
 + ❌ `utils`的完善
 + ...
